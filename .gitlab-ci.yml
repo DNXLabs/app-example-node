@@ -1,0 +1,29 @@
+image: dnxsolutions/musketeers:1.1.2-ecr
+services:
+  - docker:18.03.1-ce-dind # needs to match gitlab runner version
+variables:
+  DOCKER_HOST: "tcp://docker:2375"
+  ECR_ACCOUNT: <<CHANGEME>>
+  ECR_REGION: ap-southeast-1
+  AWS_DEFAULT_REGION: ap-southeast-1
+  BUILD_VERSION: $CI_COMMIT_SHORT_SHA
+  CONTAINER_PORT: 3000
+
+stages:
+  - build
+  - deploy-apps
+
+"build and push to ECR":
+  stage: build
+  script:
+    - env
+    - make dockerBuild dockerPush
+
+"deploy to apps cluster":
+  stage: deploy-apps
+  variables:
+    AWS_ROLE: ci-deploy
+    AWS_ACCOUNT_ID: <<CHANGEME>>>
+    CLUSTER_NAME: apps
+  script:
+    - make deploy

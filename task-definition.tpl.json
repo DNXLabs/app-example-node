@@ -1,0 +1,42 @@
+{
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "${IMAGE_NAME}",
+      "memoryReservation": 512,
+      "memory": 512,
+      "name": "${APP_NAME}",
+      "portMappings": [
+        {
+          "containerPort": ${CONTAINER_PORT}
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/${CLUSTER_NAME}/${APP_NAME}",
+          "awslogs-region": "${AWS_DEFAULT_REGION}",
+          "awslogs-stream-prefix": "logs"
+        }
+      },
+      "environment" : [
+        { "name" : "APP_VERSION", "value" : "v0.1.0" }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "wp_root",
+          "containerPath": "/var/www/html"
+        }
+      ]
+    }
+  ],
+  "family": "${APP_NAME}",
+  "volumes": [
+    {
+      "name": "wp_root",
+      "host": {
+        "sourcePath": "/mnt/efs/${APP_NAME}"
+      }
+    }
+  ]
+}

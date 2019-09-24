@@ -1,0 +1,24 @@
+version: "3.2"
+
+services:
+  builder:
+    image: node:10-alpine
+    volumes:
+      - .:/app:Z
+    working_dir: /app
+
+  aws:
+    image: dnxsolutions/aws:1.16.169-dnx1
+    entrypoint: "/bin/bash -c"
+    volumes:
+      - ~/.aws:/root/.aws:ro
+    env_file:
+      - .env
+
+  deploy:
+    image: dnxsolutions/ecs-deploy:0.1.1
+    volumes:
+      - ./task-definition.tpl.json:/work/task-definition.tpl.json
+      - ~/.aws:/root/.aws:ro
+    env_file:
+      - .env
