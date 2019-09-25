@@ -28,7 +28,7 @@ env-%:
 ecrLogin: .env
 	@echo "make ecrLogin"
 	docker-compose pull aws
-	$(shell docker-compose run --rm aws "aws ecr get-login --no-include-email --registry-ids $(ECR_ACCOUNT) --region $(AWS_DEFAULT_REGION)")
+	$(shell docker-compose run --rm aws "aws ecr get-login --no-include-email --registry-ids $(ECR_ACCOUNT) --region $(AWS_DEFAULT_REGION)" | tail -n 1)
 
 dockerBuild: .env
 	@echo "make dockerBuild"
