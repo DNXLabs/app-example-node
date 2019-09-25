@@ -2,10 +2,10 @@
   "name": "app-nodejs-api",
   "version": "1.0.0",
   "description": "Simple NodeJS API ",
-  "main": "src/server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel --copy-files --include-dotfiles src -d dist --source-maps --extensions \".js,.jsx\""
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.16.4"

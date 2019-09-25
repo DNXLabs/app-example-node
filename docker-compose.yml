@@ -1,8 +1,10 @@
 version: "3.2"
 
 services:
-  builder:
+  develop:
     image: node:10-alpine
+    ports:
+      - 8080:8080
     volumes:
       - .:/app:Z
     working_dir: /app

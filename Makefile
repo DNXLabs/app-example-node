@@ -7,7 +7,7 @@ endif
 
 export ECR_ACCOUNT?=$(AWS_ACCOUNT_ID)
 export AWS_DEFAULT_REGION?=ap-southeast-1
-export CONTAINER_PORT?=3000
+export CONTAINER_PORT?=8080
 export APP_NAME=node
 
 BUILD_VERSION?=latest
@@ -45,25 +45,29 @@ deploy: .env
 .PHONY: deploy
 
 install: .env
-	docker-compose run --rm builder npm install
+	docker-compose run --rm develop npm install
 
-build: .env
-	docker-compose run --rm builder npm run build
-.PHONY: build
-
-run: .env
-	docker run -d --env-file .env -p $(CONTAINER_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
+develop: .env
+	docker-compose run -p 8080:8080 --rm develop npm start
+.PHONY: develop
 
 test: .env
-	docker-compose run --rm builder npm test
+	docker-compose run --rm develop npm test
 .PHONY: test
 
+run: .env
+	docker run --name $(APP_NAME) -d --env-file .env -p $(CONTAINER_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
+	docker logs $(APP_NAME) -f
+
+stop:
+	docker rm --force $(APP_NAME)
+
 shell:
-	docker run --env-file .env -it -p 3000:3000 -v ${PWD}:/app:Z --entrypoint "sh" $(IMAGE_NAME)
+	docker run --env-file .env -it -p $(CONTAINER_PORT):$(CONTAINER_PORT) -v ${PWD}:/app:Z --entrypoint "sh" $(IMAGE_NAME)
 
 shell-aws: .env
-	docker run --env-file .env --env-file .env.auth --env-file .env.assume -it -p 3000:3000 -v ${PWD}:/app:Z --entrypoint "sh" dnxsolutions/aws:1.4.1
+	docker-compose run aws /bin/bash
 
 style-check: .env
-	docker-compose run --rm builder npm run lint -- --fix-dry-run
+	docker-compose run --rm develop npm run lint -- --fix-dry-run
 .PHONY: style-check
