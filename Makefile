@@ -55,7 +55,7 @@ test: .env
 	docker-compose run --rm develop npm test
 .PHONY: test
 
-run: .env
+start: .env
 	docker run --name $(APP_NAME) -d --env-file .env -p $(CONTAINER_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
 	docker logs $(APP_NAME) -f
 

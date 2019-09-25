@@ -2,7 +2,9 @@ version: "3.2"
 
 services:
   develop:
-    image: node:10-alpine
+    build:
+      dockerfile: local.Dockerfile
+      context: .
     ports:
       - 8080:8080
     volumes:
