@@ -10,8 +10,14 @@ variables:
   CONTAINER_PORT: 3000
 
 stages:
+  - install
   - build
   - deploy-apps
+
+"install and test":
+  stage: install
+  script:
+    - make install test
 
 "build and push to ECR":
   stage: build
