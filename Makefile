@@ -7,6 +7,7 @@ endif
 
 export ECR_ACCOUNT?=$(AWS_ACCOUNT_ID)
 export AWS_DEFAULT_REGION?=ap-southeast-1
+export AWS_REGION=$(AWS_DEFAULT_REGION)
 export CONTAINER_PORT?=8080
 export APP_NAME=node
 

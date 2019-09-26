@@ -7,7 +7,7 @@ variables:
   ECR_REGION: ap-southeast-1
   AWS_DEFAULT_REGION: ap-southeast-1
   BUILD_VERSION: $CI_COMMIT_SHORT_SHA
-  CONTAINER_PORT: 3000
+  CONTAINER_PORT: 8080
 
 stages:
   - install
