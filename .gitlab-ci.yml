@@ -26,6 +26,7 @@ stages:
 
 "deploy to apps cluster":
   stage: deploy-apps
+  when: manual
   variables:
     AWS_ROLE: ci-deploy
     # AWS_ACCOUNT_ID: <<CHANGEME>>>
