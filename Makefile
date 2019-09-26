@@ -70,6 +70,3 @@ shell:
 shell-aws: .env
 	docker-compose run aws /bin/bash
 
-style-check: .env
-	docker-compose run --rm develop npm run lint -- --fix-dry-run
-.PHONY: style-check

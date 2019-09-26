@@ -21,22 +21,8 @@
       },
       "environment" : [
         { "name" : "APP_VERSION", "value" : "v0.1.0" }
-      ],
-      "mountPoints": [
-        {
-          "sourceVolume": "wp_root",
-          "containerPath": "/var/www/html"
-        }
       ]
     }
   ],
-  "family": "${APP_NAME}",
-  "volumes": [
-    {
-      "name": "wp_root",
-      "host": {
-        "sourcePath": "/mnt/efs/${APP_NAME}"
-      }
-    }
-  ]
+  "family": "${APP_NAME}"
 }
