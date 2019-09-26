@@ -3,7 +3,7 @@ services:
   - docker:18.03.1-ce-dind # needs to match gitlab runner version
 variables:
   DOCKER_HOST: "tcp://docker:2375"
-  ECR_ACCOUNT: <<CHANGEME>>
+  # ECR_ACCOUNT: <<CHANGEME>>
   ECR_REGION: ap-southeast-1
   AWS_DEFAULT_REGION: ap-southeast-1
   BUILD_VERSION: $CI_COMMIT_SHORT_SHA
@@ -23,7 +23,7 @@ stages:
   stage: deploy-apps
   variables:
     AWS_ROLE: ci-deploy
-    AWS_ACCOUNT_ID: <<CHANGEME>>>
+    # AWS_ACCOUNT_ID: <<CHANGEME>>>
     CLUSTER_NAME: apps
   script:
     - make deploy
