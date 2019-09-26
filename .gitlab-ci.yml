@@ -22,7 +22,6 @@ stages:
 "build and push to ECR":
   stage: build
   script:
-    - env
     - make dockerBuild dockerPush
 
 "deploy to apps cluster":
