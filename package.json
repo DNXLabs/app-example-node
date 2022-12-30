@@ -19,6 +19,6 @@
     "@babel/plugin-syntax-decorators": "^7.1.0",
     "@babel/plugin-transform-block-scoped-functions": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   }
 }
